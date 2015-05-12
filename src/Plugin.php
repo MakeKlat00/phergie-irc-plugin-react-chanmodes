@@ -159,15 +159,11 @@ class Plugin extends AbstractPlugin
      *
      * @param \Phergie\Irc\ConnectionInterface $connection
      * @param string $mode eg. 'm'
+     * @param bool $debug (optional)
      *
      * @return int|bool Mode type, or false on failure
      */
-    public function getChannelModeType(ConnectionInterface $connection, $mode)
-    {
-        return $this->_getChannelModeType($connection, $mode, true);
-    }
-
-    protected function _getChannelModeType(ConnectionInterface $connection, $mode, $debug = false)
+    public function getChannelModeType(ConnectionInterface $connection, $mode, $debug = true)
     {
         $logger = $this->getLogger();
 
@@ -194,16 +190,12 @@ class Plugin extends AbstractPlugin
      * as reported by the server.
      *
      * @param \Phergie\Irc\ConnectionInterface $connection
-     * @param string $prefix eg. 'o'
+     * @param string $mode eg. 'o'
+     * @param bool $debug (optional)
      *
      * @return string|bool Prefix character, or false on failure
      */
-    public function getPrefixFromChannelMode(ConnectionInterface $connection, $mode)
-    {
-        return $this->_getPrefixFromChannelMode($connection, $mode, true);
-    }
-
-    protected function _getPrefixFromChannelMode(ConnectionInterface $connection, $mode, $debug = false)
+    public function getPrefixFromChannelMode(ConnectionInterface $connection, $mode, $debug = true)
     {
         $logger = $this->getLogger();
 
@@ -231,15 +223,11 @@ class Plugin extends AbstractPlugin
      *
      * @param \Phergie\Irc\ConnectionInterface $connection
      * @param string $prefix eg. '@'
+     * @param bool $debug (optional)
      *
      * @return string|bool Mode character, or false on failure
      */
-    public function getChannelModeFromPrefix(ConnectionInterface $connection, $prefix)
-    {
-        return $this->_getChannelModeFromPrefix($connection, $prefix, true);
-    }
-
-    protected function _getChannelModeFromPrefix(ConnectionInterface $connection, $prefix, $debug = false)
+    public function getChannelModeFromPrefix(ConnectionInterface $connection, $prefix, $debug = true)
     {
         $logger = $this->getLogger();
 
@@ -265,14 +253,10 @@ class Plugin extends AbstractPlugin
      * Returns the map of prefixes to modes.
      *
      * @param \Phergie\Irc\ConnectionInterface $connection
+     * @param bool $debug (optional)
      * @return array
      */
-    public function getPrefixMap(ConnectionInterface $connection)
-    {
-        return $this->_getPrefixMap($connection, true);
-    }
-
-    protected function _getPrefixMap(ConnectionInterface $connection, $debug = false)
+    public function getPrefixMap(ConnectionInterface $connection, $debug = true)
     {
         $store = $this->connectionStore;
         if ($store->contains($connection) && isset($store[$connection]['prefixes'])) {
@@ -330,10 +314,9 @@ class Plugin extends AbstractPlugin
 
         // Special case: list request
         if (empty($params) && !in_array('-', $modes, true)) {
-            $self = $this;
             $chars = array_diff(array_unique($modes), ['+']);
-            $filtered = array_filter($chars, function($char) use ($self, $connection) {
-                return ($self->_getChannelModeType($connection, $char) == $self::CHANMODE_TYPE_LIST);
+            $filtered = array_filter($chars, function($char) use ($connection) {
+                return ($this->getChannelModeType($connection, $char, false) == self::CHANMODE_TYPE_LIST);
             });
             if ($chars == $filtered) {
                 $logger->debug('parseChannelModeChange: input is a list request');
@@ -357,7 +340,7 @@ class Plugin extends AbstractPlugin
                         return [];
                     }
 
-                    $modeType = $this->_getChannelModeType($connection, $char);
+                    $modeType = $this->getChannelModeType($connection, $char, false);
                     if ($modeType === false) {
                         $logger->warning("parseChannelModeChange: chanmode $char not recognised", $logMessageContext);
                         return [];
@@ -370,7 +353,7 @@ class Plugin extends AbstractPlugin
                                 $logger->warning('parseChannelModeChange: not enough params', $logMessageContext);
                                 return [];
                             }
-                            if (($prefix = $this->_getPrefixFromChannelMode($connection, $char)) !== false) {
+                            if (($prefix = $this->getPrefixFromChannelMode($connection, $char, false)) !== false) {
                                 $parsed[] = array('operation' => $operation, 'mode' => $char, 'prefix' => $prefix, 'param' => array_shift($params));
                             } else {
                                 $parsed[] = array('operation' => $operation, 'mode' => $char, 'param' => array_shift($params));
@@ -678,7 +661,7 @@ class Plugin extends AbstractPlugin
         $modesArray = $this->channelLists[$connection];
         $params = array_slice($event->getParams(), 1);
         $channel = array_shift($params);
-        $validPrefixes = preg_quote(implode('', array_keys($this->_getPrefixMap($connection))));
+        $validPrefixes = preg_quote(implode('', array_keys($this->getPrefixMap($connection, false))));
         $pattern = "/^([$validPrefixes]*)([^$validPrefixes]+)$/";
 
         // The names should be in a single trailing param, but just in case...
@@ -697,7 +680,7 @@ class Plugin extends AbstractPlugin
             $modesArray[$channel][$nick] = [];
 
             foreach ($nickPrefixes as $prefix) {
-                $mode = $this->_getChannelModeFromPrefix($connection, $prefix);
+                $mode = $this->getChannelModeFromPrefix($connection, $prefix, false);
                 $logger->debug('Recording user mode', array(
                     'channel' => $channel,
                     'nick' => $nick,
