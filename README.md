@@ -1,13 +1,13 @@
-# phergie/phergie-irc-plugin-react-usermode
+# Renegade334/phergie-irc-plugin-react-chanmodes
 
-[Phergie](http://github.com/phergie/phergie-irc-bot-react/) plugin for monitoring and providing access to channel mode information.
+[Phergie](http://github.com/phergie/phergie-irc-bot-react/) plugin for monitoring and providing access to channel mode information, forked from the original UserMode plugin by elazar.
 
 It provides the following functionality:
 * Parsing and storing the channel mode and prefix maps received from IRC servers
 * Parsing channel mode changes
 * Storing and maintaining lists of users and their prefix modes in each channel
 
-[![Build Status](https://secure.travis-ci.org/phergie/phergie-irc-plugin-react-usermode.png?branch=master)](http://travis-ci.org/phergie/phergie-irc-plugin-react-usermode)
+[![Build Status](https://secure.travis-ci.org/Renegade334/phergie-irc-plugin-react-chanmodes.png?branch=master)](http://travis-ci.org/Renegade334/phergie-irc-plugin-react-chanmodes)
 
 ## Install
 
@@ -16,7 +16,7 @@ The recommended method of installation is [through composer](http://getcomposer.
 ```JSON
 {
     "require": {
-        "phergie/phergie-irc-plugin-react-usermode": "dev-master"
+        "renegade334/phergie-irc-plugin-react-chanmodes": "dev-master"
     }
 }
 ```
@@ -29,13 +29,13 @@ See Phergie documentation for more information on
 ```php
 <?php
 
-use \Phergie\Irc\Plugin\React\UserMode\Plugin as UserModePlugin;
+use \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin as ChanModesPlugin;
 
-$userModePlugin = new UserModePlugin(array(
+$chanModesPlugin = new ChanModesPlugin(array(
     // All optional
     'defaultmodetypes' => array(
-        'b' => UserModePlugin::CHANMODE_TYPE_LIST,
-        't' => UserModePlugin::CHANMODE_TYPE_NOPARAM,
+        'b' => ChanModesPlugin::CHANMODE_TYPE_LIST,
+        't' => ChanModesPlugin::CHANMODE_TYPE_NOPARAM,
         // ...
     ),
     'defaultprefixes' => array(
@@ -53,10 +53,10 @@ return array(
 
     'plugins' => array(
 
-        $userModePlugin,
+        $chanModesPlugin,
 
-        new \Plugin\That\Uses\UserMode\Plugin(array(
-            'usermode' => $userModePlugin,
+        new \Plugin\That\Uses\ChanModes\Plugin(array(
+            'chanmodes' => $chanModesPlugin,
         )),
 
         // ...
@@ -90,7 +90,7 @@ Returns a list of users in a particular channel.
 mixed Plugin::getChannelModeType(\Phergie\Irc\ConnectionInterface $connection, string $mode)
 ```
 Get the mode type of a particular channel mode. The return value will be one of the
-[class constants](https://github.com/Renegade334/phergie-irc-plugin-react-chanmodeparser/blob/cc4671561bb7e46267b70750a78cb286abd2f2db/src/Plugin.php#L26-29)
+[class constants](https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes/blob/07e74c81fede7241b5846379cdf6af483127b492/src/Plugin.php#L27-30)
 `CHANMODE_TYPE_*`, or `false` if no such mode exists.
 
 #### getChannelModeFromPrefix
@@ -166,15 +166,15 @@ use Phergie\Irc\Plugin\React\Command\CommandEvent;
 class FooPlugin implements PluginInterface
 {
     /**
-     * @var \Phergie\Irc\Plugin\React\UserMode\Plugin
+     * @var \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin
      */
-    protected $userModePlugin;
+    protected $chanModesPlugin;
 
     public function __construct(array $config)
     {
-        // Validate $config['usermode']
+        // Validate $config['chanmodes']
 
-        $this->userModePlugin = $config['usermode'];
+        $this->chanModesPlugin = $config['chanmodes'];
     }
 
     public function getSubscribedEvents()
@@ -199,7 +199,7 @@ class FooPlugin implements PluginInterface
         }
 
         // Don't process the command if the user is not a channel operator
-        if (!$this->userModePlugin->userHasPrefixMode($connection, $source, $nick, 'o')) {
+        if (!$this->chanModesPlugin->userHasPrefixMode($connection, $source, $nick, 'o')) {
             return;
         }
 

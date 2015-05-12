@@ -2,25 +2,25 @@
 /**
  * Phergie (http://phergie.org)
  *
- * @link https://github.com/phergie/phergie-irc-plugin-react-usermode for the canonical source repository
- * @copyright Copyright (c) 2008-2014 Phergie Development Team (http://phergie.org)
+ * @link https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes for the canonical source repository
+ * @copyright Copyright (c) 2008-2014 Phergie Development Team (http://phergie.org), 2015 Renegade334 (http://www.renegade334.me.uk/)
  * @license http://phergie.org/license Simplified BSD License
- * @package Phergie\Irc\Plugin\React\UserMode
+ * @package Renegade334\Phergie\Irc\Plugin\ChanModes
  */
 
-namespace Phergie\Irc\Tests\Plugin\React\UserMode;
+namespace Renegade334\Phergie\Irc\Tests\Plugin\ChanModes;
 
 use Phake;
 use Phergie\Irc\Bot\React\EventQueueInterface;
 use Phergie\Irc\Event\ServerEventInterface;
 use Phergie\Irc\Event\UserEventInterface;
-use Phergie\Irc\Plugin\React\UserMode\Plugin;
+use Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin;
 
 /**
  * Tests for the Plugin class.
  *
  * @category Phergie
- * @package Phergie\Irc\Plugin\React\UserMode
+ * @package Renegade334\Phergie\Irc\Plugin\ChanModes
  */
 class PluginTest extends \PHPUnit_Framework_TestCase
 {
@@ -60,7 +60,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase
      * Returns an instance of the plugin under test.
      *
      * @param bool $loadDummyMaps Whether to load dummy chanmode/prefix maps
-     * @return \Phergie\Irc\Plugin\React\UserMode
+     * @return \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin
      */
     protected function getPlugin($loadDummyMaps)
     {
@@ -90,7 +90,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns a plugin instance with a pre-filled channel store.
      *
-     * @return \Phergie\Irc\Plugin\React\UserMode
+     * @return \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin
      */
     protected function getPluginPrePopulated()
     {
@@ -128,7 +128,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns a reference to the plugin's internal connection store.
      *
-     * @param \Phergie\Irc\Plugin\React\UserMode $plugin
+     * @param \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin $plugin
      * @return \SplObjectStorage
      */
     protected function getConnectionStoreObject(Plugin $plugin)
@@ -142,7 +142,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns a reference to the plugin's internal channel list store.
      *
-     * @param \Phergie\Irc\Plugin\React\UserMode $plugin
+     * @param \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin $plugin
      * @return \SplObjectStorage
      */
     protected function getChannelListStoreObject(Plugin $plugin)

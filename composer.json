@@ -1,13 +1,24 @@
 {
-    "name": "phergie/phergie-irc-plugin-react-usermode",
-    "description": "Phergie plugin for monitoring and providing access to user mode information",
+    "name": "renegade334/phergie-irc-plugin-react-chanmodes",
+    "description": "Phergie plugin for monitoring and providing access to channel mode information",
     "keywords": [ "irc", "bot", "react", "plugin" ],
     "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Renegade334",
+            "homepage": "http://www.renegade334.me.uk/",
+            "role": "Developer"
+        },
+        {
+            "name": "elazar",
+            "homepage": "http://matthewturland.com/",
+            "role": "Developer"
+        }
+    ],
     "support": {
-        "email": "team@phergie.org",
         "irc": "irc://irc.freenode.net/phergie",
-        "issues": "https://github.com/phergie/phergie-irc-plugin-react-usermode/issues",
-        "source": "https://github.com/phergie/phergie-irc-plugin-react-usermode"
+        "issues": "https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes/issues",
+        "source": "https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes"
     },
     "minimum-stability": "dev",
     "require": {
@@ -20,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Phergie\\Irc\\Plugin\\React\\UserMode\\": "src"
+            "Renegade334\\Phergie\\Irc\\Plugin\\ChanModes\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phergie\\Irc\\Tests\\Plugin\\React\\UserMode\\": "tests"
+            "Renegade334\\Phergie\\Irc\\Tests\\Plugin\\ChanModes\\": "tests"
         }
     }
 }

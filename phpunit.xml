@@ -8,7 +8,7 @@
          syntaxCheck="true"
 >
     <testsuites>
-        <testsuite name="phergie/phergie-irc-plugin-react-usermode test suite">
+        <testsuite name="renegade334/phergie-irc-plugin-react-chanmodes test suite">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
