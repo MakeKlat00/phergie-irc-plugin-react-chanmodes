@@ -792,7 +792,7 @@ class Plugin extends AbstractPlugin
             $store->attach($connection, new \ArrayObject);
         }
 
-        foreach ($event->getParams() as $param) {
+        foreach ($event->getParams()['iterable'] as $param) {
             if ($param == 'NAMESX') {
                 $queue->ircProtoctl('NAMESX');
             }
