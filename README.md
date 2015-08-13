@@ -1,4 +1,4 @@
-# Renegade334/phergie-irc-plugin-react-chanmodes
+# MakeKlat00/phergie-irc-plugin-react-chanmodes
 
 [Phergie](http://github.com/phergie/phergie-irc-bot-react/) plugin for monitoring and providing access to channel mode information, forked from the original UserMode plugin by elazar.
 
@@ -7,7 +7,7 @@ It provides the following functionality:
 * Parsing channel mode changes
 * Storing and maintaining lists of users and their prefix modes in each channel
 
-[![Build Status](https://secure.travis-ci.org/Renegade334/phergie-irc-plugin-react-chanmodes.png?branch=master)](http://travis-ci.org/Renegade334/phergie-irc-plugin-react-chanmodes)
+[![Build Status](https://secure.travis-ci.org/MakeKlat00/phergie-irc-plugin-react-chanmodes.png?branch=master)](http://travis-ci.org/MakeKlat00/phergie-irc-plugin-react-chanmodes)
 
 ## Install
 
@@ -16,7 +16,7 @@ The recommended method of installation is [through composer](http://getcomposer.
 ```JSON
 {
     "require": {
-        "renegade334/phergie-irc-plugin-react-chanmodes": "dev-master"
+        "makeklat00/phergie-irc-plugin-react-chanmodes": "dev-master"
     }
 }
 ```
@@ -29,7 +29,7 @@ See Phergie documentation for more information on
 ```php
 <?php
 
-use \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin as ChanModesPlugin;
+use \MakeKlat00\Phergie\Irc\Plugin\ChanModes\Plugin as ChanModesPlugin;
 
 $chanModesPlugin = new ChanModesPlugin(array(
     // All optional
@@ -90,7 +90,7 @@ Returns a list of users in a particular channel.
 mixed Plugin::getChannelModeType(\Phergie\Irc\ConnectionInterface $connection, string $mode)
 ```
 Get the mode type of a particular channel mode. The return value will be one of the
-[class constants](https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes/blob/07e74c81fede7241b5846379cdf6af483127b492/src/Plugin.php#L27-30)
+[class constants](https://github.com/MakeKlat00/phergie-irc-plugin-react-chanmodes/blob/07e74c81fede7241b5846379cdf6af483127b492/src/Plugin.php#L27-30)
 `CHANMODE_TYPE_*`, or `false` if no such mode exists.
 
 #### getChannelModeFromPrefix
@@ -166,7 +166,7 @@ use Phergie\Irc\Plugin\React\Command\CommandEvent;
 class FooPlugin implements PluginInterface
 {
     /**
-     * @var \Renegade334\Phergie\Irc\Plugin\ChanModes\Plugin
+     * @var \MakeKlat00\Phergie\Irc\Plugin\ChanModes\Plugin
      */
     protected $chanModesPlugin;
 

@@ -2,13 +2,13 @@
 /**
  * Phergie (http://phergie.org)
  *
- * @link https://github.com/Renegade334/phergie-irc-plugin-react-chanmodes for the canonical source repository
- * @copyright Copyright (c) 2008-2014 Phergie Development Team (http://phergie.org), 2015 Renegade334 (http://www.renegade334.me.uk/)
+ * @link https://github.com/MakeKlat00/phergie-irc-plugin-react-chanmodes for the canonical source repository
+ * @copyright Copyright (c) 2008-2014 Phergie Development Team (http://phergie.org), 2015 MakeKlat00 (http://www.makeklat00.me.uk/)
  * @license http://phergie.org/license Simplified BSD License
- * @package Renegade334\Phergie\Irc\Plugin\ChanModes
+ * @package MakeKlat00\Phergie\Irc\Plugin\ChanModes
  */
 
-namespace Renegade334\Phergie\Irc\Plugin\ChanModes;
+namespace MakeKlat00\Phergie\Irc\Plugin\ChanModes;
 
 use Phergie\Irc\Bot\React\AbstractPlugin;
 use Phergie\Irc\Bot\React\EventQueueInterface;
@@ -20,7 +20,7 @@ use Phergie\Irc\Event\UserEventInterface;
  * Plugin for monitoring and providing access to channel mode information.
  *
  * @category Phergie
- * @package Renegade334\Phergie\Irc\Plugin\ChanModes
+ * @package MakeKlat00\Phergie\Irc\Plugin\ChanModes
  */
 class Plugin extends AbstractPlugin
 {
